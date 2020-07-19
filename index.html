@@ -2,12 +2,24 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="style.css">
-        <script src="index.js"></script>
         <script src="database.js"></script>
+        <script src="index.js"></script>
         <title>LibraryDatabase</title>
     </head>
-    <body>
+    <body onload="setup()">
 		<noscript>You must enable JavaScript to use this page</noscript>
-        
+        <div id="header">
+            <label>Zack's Library</label>
+        </div>
+        <div id="searchBar">
+            <input type="text" id="query">
+            <div id="search">Search</div>
+        </div>
+        <div>
+            <p id="resultsCounter">Loading...</p>
+        </div>
+        <div id="resultsContainer">
+            <p id="loadingMessage">Loading...</p>
+        </div>
     </body>
 </html>
