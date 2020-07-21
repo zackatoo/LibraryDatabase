@@ -26,7 +26,7 @@ div {
     text-align: center;
 }
 
-#sorters {
+#sorters, #sifters {
     margin: auto;
     width: 60%;
     height: 40px;
@@ -103,11 +103,11 @@ div {
 }
 
 .open {
-    height: 100px;
+    height: 120px;
 }
 
 .open > .seriesIndex {
-    height: 100px;
+    height: 120px;
 }
 
 .open > .metadata {

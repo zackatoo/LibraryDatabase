@@ -69,6 +69,7 @@ function convertLine(line) {
             for (let i = 0; i < seriesNameFields.length - 1; i++) {
                 seriesName += seriesNameFields[i] + " ";
             }
+            seriesName = seriesName.trim();
         } else {
             language = "Japanese";
         }

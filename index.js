@@ -6,6 +6,7 @@ var resultsCounter;
 var loadingMessage;
 
 var filters;
+var sifters = {};
 var sorters = {activeSorter:"author", isReversed:true};
 
 var dataNodes = [];
@@ -18,6 +19,13 @@ function setup() {
     populateDataNodes();
     loadingMessage = document.getElementById("loadingMessage");
     loadingMessage.style.display = "none";
+
+    sifters.type = document.getElementById("typeSifter");
+    sifters.type.onclick = () => activateSifter("type");
+    sifters.own = document.getElementById("ownSifter");
+    sifters.own.onclick = () => activateSifter("own");
+    sifters.read = document.getElementById("readSifter");
+    sifters.read.onclick = () => activateSifter("read");
 
     filters = document.getElementById("filters");
     filters.style.display = "none";
@@ -44,6 +52,10 @@ function setup() {
     updateSorter(sorters.author, "author");
     updateSorter(sorters.series, "series");
     sort();
+}
+
+function activateSifter(sifterName) {
+    
 }
 
 function search() {
@@ -263,8 +275,13 @@ function createDataNode(entry) {
 
         let obtained = document.createElement("p");
         let price = (entry.price == 0) ? "free" : formatMoney(entry.price);
-        obtained.appendChild(document.createTextNode("Obtained from " + entry.obtained + " for " + price));
+        let recieved = (entry.price == 0) ? "Recieved" : "Purchased";
+        obtained.appendChild(document.createTextNode(recieved + " from " + entry.obtained + " for " + price));
         metadata.appendChild(obtained);
+
+        let language = document.createElement("p");
+        language.appendChild(document.createTextNode("Language: " + entry.language));
+        metadata.appendChild(language);
 
         metadata.style.display = "none";
         wrapper.appendChild(metadata);

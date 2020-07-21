@@ -4,7 +4,10 @@
         <link rel="stylesheet" href="style.css">
         <script src="database.js"></script>
         <script src="index.js"></script>
-        <title>LibraryDatabase</title>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+        <title>Library</title>
     </head>
     <body onload="setup()">
 		<noscript>You must enable JavaScript to use this page</noscript>
@@ -16,6 +19,11 @@
             <div id="filter">Filter</div>
         </div>
         <div id="filters">
+            <div id="sifters">
+                <div id="typeSifter"></div>
+                <div id="ownSifter"></div>
+                <div id="readSifter"></div>
+            </div>
             <div id="sorters">
                 <div id="titleSorter" class="sorter"></div>
                 <div id="authorSorter" class="sorter"></div>
