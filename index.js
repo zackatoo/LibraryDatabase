@@ -20,13 +20,6 @@ function setup() {
     loadingMessage = document.getElementById("loadingMessage");
     loadingMessage.style.display = "none";
 
-    sifters.type = document.getElementById("typeSifter");
-    sifters.type.onclick = () => activateSifter("type");
-    sifters.own = document.getElementById("ownSifter");
-    sifters.own.onclick = () => activateSifter("own");
-    sifters.read = document.getElementById("readSifter");
-    sifters.read.onclick = () => activateSifter("read");
-
     filters = document.getElementById("filters");
     filters.style.display = "none";
     document.getElementById("filter").onclick = () => {
@@ -52,10 +45,23 @@ function setup() {
     updateSorter(sorters.author, "author");
     updateSorter(sorters.series, "series");
     sort();
-}
 
-function activateSifter(sifterName) {
-    
+    sifters.type = document.getElementById("typeSifter");
+    sifters.type.onclick = () => activateSifter("type");
+    sifters.own = document.getElementById("ownSifter");
+    sifters.own.onclick = () => activateSifter("own");
+    sifters.read = document.getElementById("readSifter");
+    sifters.read.onclick = () => activateSifter("read");
+
+    let checkmark = '&nbsp;&nbsp;<span style="color:#127a00;font-size:15px">&#x2714;</span>';
+    let crossmark = '&nbsp;&nbsp;<span style="color:#c20000;font-size:15px">&#x2718;</span>';
+    sifters.typeObj = {state:0, text:["Type&nbsp;&nbsp;-", "Manga", "Comic", "Hardcover", "Paperback"], color:["#fdfdfd", "#ffb8e2", "#b8fffa", "#ffddba", "#9dccad"]};
+    sifters.ownObj = {state:0, text:['Own&nbsp;&nbsp;&nbsp;-', 'Own' + checkmark, 'Own' + crossmark], color:["#fdfdfd", "#bcffb8", "#ffd6d6"]};
+    sifters.readObj = {state:0, text:['Read&nbsp;&nbsp;&nbsp;-', 'Read' + checkmark, 'Read' + crossmark], color:["#fdfdfd", "#bcffb8", "#ffd6d6"]};
+
+    updateSifter(sifters.type, sifters.typeObj);
+    updateSifter(sifters.own, sifters.ownObj);
+    updateSifter(sifters.read, sifters.readObj);
 }
 
 function search() {
@@ -79,8 +85,19 @@ function updateResultsCounter(results) {
 }
 
 function checkMatch(queryText, entry) {
+    // Check to see if this entry can even appear in the results from the sifters
+    if (sifters.typeObj.state != 0) {
+        if (entry.bookType != sifters.typeObj.text[sifters.typeObj.state]) return false;
+    }
+    if (sifters.ownObj.state == 1 && !entry.own) return false;
+    if (sifters.ownObj.state == 2 && entry.own) return false;
+    if (sifters.readObj.state == 1 && !entry.read) return false;
+    if (sifters.readObj.state == 2 && entry.read) return false;
+
+    // If the query is empty, show everything that matches the sifters
     if (queryText == "") return true;
 
+    // Check to see if this entry contains anything that the query is looking for
     if (entry.title.toLowerCase().includes(queryText)) return true;
     if (entry.author.toLowerCase().includes(queryText)) return true;
     if (entry.illistrator != undefined && entry.illistrator.toLowerCase().includes(queryText)) return true;
@@ -175,9 +192,26 @@ function sort() {
     }
 }
 
+function activateSifter(sifterName) {
+    let sifterElement = sifters[sifterName];
+    let sifterObj = sifters[sifterName + "Obj"];
+
+    sifterObj.state++;
+    if (sifterObj.state == sifterObj.text.length) sifterObj.state = 0;
+
+    updateSifter(sifterElement, sifterObj);
+    search();
+}
+
+function updateSifter(sifterElement, sifterObj) {
+    sifterElement.innerHTML = sifterObj.text[sifterObj.state];
+    sifterElement.style.backgroundColor = sifterObj.color[sifterObj.state];
+}
+
 function populateDataNodes() {
     // Creates an HTML node for every entry in the database variable
     for (let i = 0; i < database.length; i++) {
+        database[i].own = database[i].obtained != undefined;
         database[i].id = i;
         dataNodes[i] = createDataNode(database[i]);
         dataNodes[i].id = i;
