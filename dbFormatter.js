@@ -60,10 +60,26 @@ function convertLine(line) {
     if (fields[7] == "" || fields[7] == "-") JSON += "undefined";
     else JSON += "'" + escape(fields[7]) + "'";
 
+    let language = "English";
+    let seriesName = fields[8];
+    if (fields[3] == "Manga") {
+        let seriesNameFields = seriesName.split(" ", -1);
+        if (seriesNameFields[seriesNameFields.length - 1] == "(ENG)") {
+            seriesName = "";
+            for (let i = 0; i < seriesNameFields.length - 1; i++) {
+                seriesName += seriesNameFields[i] + " ";
+            }
+        } else {
+            language = "Japanese";
+        }
+    }
+
+    JSON += ",language:'" + language + "'";
+
     if (fields[8] == "") return error("Series field cannot be empty");
     JSON += ",series:";
-    if (fields[8] == "STANDALONE") JSON += "undefined";
-    else JSON += "'" + escape(fields[8]) + "'";
+    if (fields[8] == "STANDALONE") JSON += "'~'";
+    else JSON += "'" + escape(seriesName) + "'";
 
     if (fields[9] == "") return error("SeriesNO field cannot be empty");
     JSON += ",seriesNO:";

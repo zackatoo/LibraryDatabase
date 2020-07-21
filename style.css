@@ -5,7 +5,7 @@ body {
     height: 100%;
     width: 674px;
     margin: auto;
-    background-color: #F0F0F0;
+    background-color: #ebf5f5;
 }
 
 p {
@@ -26,17 +26,48 @@ div {
     text-align: center;
 }
 
+#sorters {
+    margin: auto;
+    width: 60%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.sorter {
+    text-align: center;
+    display: inline;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    user-select: none;
+    cursor: pointer;
+    margin-left: 50px;
+    border: 1px solid  black;
+    border-radius: 3px;
+}
+
 #resultsContainer {
     margin-top: 10px;
 }
 
 .entry {
     height: 60px;
+    border-radius: 3px;
     border: 1px solid  black;
     border-radius: 5px;
     margin-bottom: 4px;
     padding: 2px;
     background-color: #FDFDFD;
+}
+
+.entry:hover {
+    border: 2px solid black;
+    padding: 1px;
+}
+
+.unowned {
+    background-color: #f5ebeb;
 }
 
 .seriesIndex {
@@ -48,37 +79,11 @@ div {
 }
 
 .seriesNO {
-    top: 50%;
-    margin-top: -13px;
-}
-
-#query {
-    height: 26px;
-    width: 80%;
-    font-family: 'Oxygen', sans-serif;
-    font-size: 16px;
-    padding-left: 10px;
-}
-
-#search {
-    display: inline;
-    border-radius: 3px;
-    background-color: #57a5ff;
-    border: 1px solid  black;
-    color: #FDFDFD;
-    cursor: pointer;
-    padding: 5px;
-}
-
-#searchBar {
-    margin: auto;
-    width: 420px;
-    padding-top: 10px;
+    top: 13px;
 }
 
 .info {
-    top: 50%;
-    margin-top: -24px;
+    top: 6px;
 }
 
 .title {
@@ -90,7 +95,58 @@ div {
     font-size: 14px;
 }
 
+.read {
+    float: right;
+    color: #127a00;
+    font-size: 20px;
+    padding-right: 4px;
+}
+
+.open {
+    height: 100px;
+}
+
+.open > .seriesIndex {
+    height: 100px;
+}
+
+.open > .metadata {
+    margin-top: 15px;
+    font-size: 14px;
+    color: black;
+}
+
+#query {
+    height: 26px;
+    width: 80%;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+#filter {
+    margin-left: 5px;
+    display: inline;
+    border-radius: 3px;
+    background-color: #57a5ff;
+    border: 1px solid  black;
+    color: #FDFDFD;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+}
+
+#searchBar {
+    margin: auto;
+    width: 425px;
+    padding-top: 10px;
+}
+
 #resultsCounter {
     color: #6A6A6A;
     font-size: 14px;
+}
+
+#footer {
+    height: 25px;
 }

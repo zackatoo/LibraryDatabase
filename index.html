@@ -12,14 +12,23 @@
             <label>Zack's Library</label>
         </div>
         <div id="searchBar">
-            <input type="text" id="query">
-            <div id="search">Search</div>
+            <input autocomplete="off" type="text" id="query">
+            <div id="filter">Filter</div>
+        </div>
+        <div id="filters">
+            <div id="sorters">
+                <div id="titleSorter" class="sorter"></div>
+                <div id="authorSorter" class="sorter"></div>
+                <div id="seriesSorter" class="sorter"></div>
+            </div>
         </div>
         <div>
             <p id="resultsCounter">Loading...</p>
         </div>
         <div id="resultsContainer">
             <p id="loadingMessage">Loading...</p>
+        </div>
+        <div id="footer">
         </div>
     </body>
 </html>
